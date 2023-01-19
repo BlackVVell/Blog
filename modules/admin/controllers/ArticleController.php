@@ -79,7 +79,11 @@ class ArticleController extends Controller
                 $file->saveAs('uploads/'. $model->image);
                 $model->save(false);
             }
-            return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+        } else {
+            $model->loadDefaultValues();
         }
 
         return $this->render('create', [
@@ -113,7 +117,9 @@ class ArticleController extends Controller
                 $model->save(false);
             }
 
-            return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('update', [

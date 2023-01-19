@@ -2,12 +2,14 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use \yii\helpers\ArrayHelper;
-use \app\models\Category;
+use yii\helpers\ArrayHelper;
+use app\models\Category;
 
 /** @var yii\web\View $this */
 /** @var app\models\Article $model */
 /** @var yii\widgets\ActiveForm $form */
+$category = Category::find()->all();
+$items = ArrayHelper::map($category, 'id', 'title');
 ?>
 
 <div class="article-form">
@@ -24,7 +26,7 @@ use \app\models\Category;
 
     <?= $form->field($model, 'image')->fileInput(['maxlength'=>true]) ?>
 
-    <?= $form->field($model, 'category_id')->textInput() ?>
+    <?= $form->field($model, 'category_id')->dropDownList($items) ?>
 
     <?= $form->field($model, 'user_id')->textInput() ?>
 
