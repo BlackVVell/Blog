@@ -4,9 +4,11 @@ namespace app\modules\admin\controllers;
 
 use app\models\Article;
 use app\models\ArticleSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ArticleController implements the CRUD actions for Article model.
@@ -69,12 +71,15 @@ class ArticleController extends Controller
     {
         $model = new Article();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+        if (Yii::$app->request->isPost) {
+            $model->load(Yii::$app->request->post());
+            if ($file = UploadedFile::getInstance($model, 'image'))
+            {
+                $model->image = strtolower(md5(uniqid($file->baseName)) . '.' . $file->extension);
+                $file->saveAs('uploads/'. $model->image);
+                $model->save(false);
             }
-        } else {
-            $model->loadDefaultValues();
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -93,7 +98,21 @@ class ArticleController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        if (Yii::$app->request->isPost) {
+            $model->load(Yii::$app->request->post());
+
+            if (file_exists('uploads/' . $model->image))
+            {
+                unlink('uploads/' . $model->image);
+            }
+
+            if ($file = UploadedFile::getInstance($model, 'image'))
+            {
+                $model->image = strtolower(md5(uniqid($file->baseName)) . '.' . $file->extension);
+                $file->saveAs('uploads/'. $model->image);
+                $model->save(false);
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -111,7 +130,13 @@ class ArticleController extends Controller
      */
     public function actionDelete($id)
     {
+        $model = $this->findModel($id);
         $this->findModel($id)->delete();
+
+        if (file_exists('uploads/' . $model->image))
+        {
+            unlink('uploads/' . $model->image);
+        }
 
         return $this->redirect(['index']);
     }

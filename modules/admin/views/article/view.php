@@ -34,7 +34,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'description:ntext',
             'content:ntext',
             'date',
-            'image',
+            [
+                'attribute'=>'image',
+                'value'=>'/Blog/web/uploads/'.$model->image,
+                'format'=>['image', ['width'=>200]],
+            ],
             'viewed',
             'category_id',
             'user_id',

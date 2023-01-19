@@ -38,11 +38,10 @@ class Article extends \yii\db\ActiveRecord
     {
         return [
             [['title'], 'required'],
-            [['description', 'content'], 'string'],
+            [['title', 'description', 'content'], 'string'],
             [['date'], 'date', 'format' => 'php:Y-m-d'],
             [['date'], 'default', 'value' => date('Y-m-d')],
             [['viewed', 'category_id', 'user_id'], 'integer'],
-            [['title', 'image'], 'string', 'max' => 255],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -94,5 +93,13 @@ class Article extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
+    public function getImage()
+    {
+        if($this->image)
+        {
+            return '/Blog/web/uploads/' . $this->image;
+        }
     }
 }
