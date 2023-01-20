@@ -14,9 +14,9 @@ $this->title = 'My Yii Application';
                 <?php foreach($articles as $article):?>
                     <article class="post">
                         <div class="post-thumb">
-                            <a href="<?= Url::toRoute(['site/view', 'id'=>$article->id]);?>"><img src="<?= $article->getImage();?>" alt=""></a>
+                            <a href="<?= Url::toRoute(['site/post', 'id'=>$article->id]);?>"><img src="<?= $article->getImage();?>" alt=""></a>
 
-                            <a href="<?= Url::toRoute(['site/view', 'id'=>$article->id]);?>" class="post-thumb-overlay text-center">
+                            <a href="<?= Url::toRoute(['site/post', 'id'=>$article->id]);?>" class="post-thumb-overlay text-center">
                                 <div class="text-uppercase text-center">View Post</div>
                             </a>
                         </div>
@@ -24,7 +24,7 @@ $this->title = 'My Yii Application';
                             <header class="entry-header text-center text-uppercase">
                                 <h6><a href="<?= Url::toRoute(['site/category','id'=>$article->category->id])?>"> <?= $article->category->title; ?></a></h6>
 
-                                <h1 class="entry-title"><a href="<?= Url::toRoute(['site/view', 'id'=>$article->id]);?>"><?= $article->title?></a></h1>
+                                <h1 class="entry-title"><a href="<?= Url::toRoute(['site/post', 'id'=>$article->id]);?>"><?= $article->title?></a></h1>
 
 
                             </header>
@@ -33,7 +33,7 @@ $this->title = 'My Yii Application';
                                 </p>
 
                                 <div class="btn-continue-reading text-center text-uppercase">
-                                    <a href="<?= Url::toRoute(['site/view', 'id'=>$article->id]);?>" class="more-link">Continue Reading</a>
+                                    <a href="<?= Url::toRoute(['site/post', 'id'=>$article->id]);?>" class="more-link">Continue Reading</a>
                                 </div>
                             </div>
                             <div class="social-share">
@@ -61,13 +61,13 @@ $this->title = 'My Yii Application';
 
                         foreach($popular as $article):?>
                             <div class="popular-post">
-                                <a href="<?= Url::toRoute(['site/view','id'=>$article->id]);?>" class="popular-img"><img src="<?= $article->getImage();?>" alt="">
+                                <a href="<?= Url::toRoute(['site/post','id'=>$article->id]);?>" class="popular-img"><img src="<?= $article->getImage();?>" alt="">
 
                                     <div class="p-overlay"></div>
                                 </a>
 
                                 <div class="p-content">
-                                    <a href="<?= Url::toRoute(['site/view','id'=>$article->id]);?>" class="text-uppercase"><?= $article->title?></a>
+                                    <a href="<?= Url::toRoute(['site/post','id'=>$article->id]);?>" class="text-uppercase"><?= $article->title?></a>
                                     <span class="p-date"><?= $article->getDate();?></span>
 
                                 </div>
@@ -81,12 +81,12 @@ $this->title = 'My Yii Application';
                             <div class="thumb-latest-posts">
                                 <div class="media">
                                     <div class="media-left">
-                                        <a href="<?= Url::toRoute(['site/view','id'=>$article->id]);?>" class="popular-img"><img src="<?= $article->getImage();?>" alt="">
+                                        <a href="<?= Url::toRoute(['site/post','id'=>$article->id]);?>" class="popular-img"><img src="<?= $article->getImage();?>" alt="">
                                             <div class="p-overlay"></div>
                                         </a>
                                     </div>
                                     <div class="p-content">
-                                        <a href="<?= Url::toRoute(['site/view','id'=>$article->id]);?>" class="text-uppercase"><?= $article->title?></a>
+                                        <a href="<?= Url::toRoute(['site/post','id'=>$article->id]);?>" class="text-uppercase"><?= $article->title?></a>
                                         <span class="p-date"><?= $article->getDate();?></span>
                                     </div>
                                 </div>

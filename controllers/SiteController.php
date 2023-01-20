@@ -144,13 +144,34 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
-    public function actionCategory()
+    public function actionCategory($id)
     {
-        return $this->render('category');
+        $query = Article::find()->where(['category_id' => $id]);
+        $count = $query->count();
+        $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 6]);
+        $articles = $query->offset($pagination->offset)->limit($pagination->limit)->all();
+
+        $data['articles'] = $articles;
+        $data['pagination'] = $pagination;
+
+        return $this->render('category', [
+            'articles'=>$data['articles'],
+            'pagination'=>$data['pagination'],
+        ]);
     }
 
-    public function actionPost()
+    public function actionPost($id)
     {
-        return $this->render('post');
+        $article = Article::findOne($id);
+        $popular = Article::find()->orderBy('viewed DESC')->limit(3)->all();
+        $recent = Article::find()->orderBy('date ASC')->limit(3)->all();
+        $categories = Category::find()->all();
+
+        return $this->render('post', [
+            'article' => $article,
+            'popular'=>$popular,
+            'recent'=>$recent,
+            'categories'=>$categories,
+        ]);
     }
 }
