@@ -154,9 +154,16 @@ class SiteController extends Controller
         $data['articles'] = $articles;
         $data['pagination'] = $pagination;
 
+        $popular = Article::find()->orderBy('viewed DESC')->limit(3)->all();
+        $recent = Article::find()->orderBy('date ASC')->limit(3)->all();
+        $categories = Category::find()->all();
+
         return $this->render('category', [
             'articles'=>$data['articles'],
             'pagination'=>$data['pagination'],
+            'popular'=>$popular,
+            'recent'=>$recent,
+            'categories'=>$categories,
         ]);
     }
 
