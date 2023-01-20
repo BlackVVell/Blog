@@ -102,4 +102,9 @@ class Article extends \yii\db\ActiveRecord
             return '/Blog/web/uploads/' . $this->image;
         }
     }
+
+    public function getDate()
+    {
+        return Yii::$app->formatter->asDate($this->date);
+    }
 }
