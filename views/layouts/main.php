@@ -4,20 +4,14 @@
 /** @var string $content */
 
 use app\assets\AppAsset;
+use app\assets\PublicAsset;
 use app\widgets\Alert;
 use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
 
-AppAsset::register($this);
-
-$this->registerCsrfMetaTags();
-$this->registerMetaTag(['charset' => Yii::$app->charset], 'charset');
-$this->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width, initial-scale=1, shrink-to-fit=no']);
-$this->registerMetaTag(['name' => 'description', 'content' => $this->params['meta_description'] ?? '']);
-$this->registerMetaTag(['name' => 'keywords', 'content' => $this->params['meta_keywords'] ?? '']);
-$this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii::getAlias('@web/favicon.ico')]);
+PublicAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -29,50 +23,171 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <body class="d-flex flex-column h-100">
 <?php $this->beginBody() ?>
 
-<header id="header">
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
-    ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest
-                ? ['label' => 'Login', 'url' => ['/site/login']]
-                : '<li class="nav-item">'
-                    . Html::beginForm(['/site/logout'])
-                    . Html::submitButton(
-                        'Logout (' . Yii::$app->user->identity->username . ')',
-                        ['class' => 'nav-link btn btn-link logout']
-                    )
-                    . Html::endForm()
-                    . '</li>'
-        ]
-    ]);
-    NavBar::end();
-    ?>
-</header>
-
-<main id="main" class="flex-shrink-0" role="main">
+<nav class="navbar main-menu navbar-default">
     <div class="container">
-        <?php if (!empty($this->params['breadcrumbs'])): ?>
-            <?= Breadcrumbs::widget(['links' => $this->params['breadcrumbs']]) ?>
-        <?php endif ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
+        <div class="menu-content">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+
+                <a href="/Blog/web/"><img src="/Blog/web/public/images/logo.png" height="50px" style="margin: 8px 20px 7px" alt=""></a>
+            </div>
+
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                <ul class="nav navbar-nav text-uppercase">
+                    <li><a href="/Blog/web/">Home</a></li>
+                    <li><a href="category">Category</a></li>
+                </ul>
+                <div class="i_con">
+                    <ul class="nav navbar-nav text-uppercase">
+                        <?php if(Yii::$app->user->isGuest):?>
+                            <li><a href="">Login</a></li>
+                            <li><a href="">Register</a></li>
+                        <?php else: ?>
+                            <?= Html::beginForm(['/auth/logout'], 'post')
+                            . Html::submitButton(
+                                'Logout (' . Yii::$app->user->identity->name . ')',
+                                ['class' => 'btn btn-link logout', 'style'=>"padding-top:10px;"]
+                            )
+                            . Html::endForm() ?>
+                        <?php endif;?>
+                    </ul>
+                </div>
+
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
     </div>
-</main>
+    <!-- /.container-fluid -->
+</nav>
 
-<footer id="footer" class="mt-auto py-3 bg-light">
+
+<?= $content ?>
+
+
+<footer class="footer-widget-section">
     <div class="container">
-        <div class="row text-muted">
-            <div class="col-md-6 text-center text-md-start">&copy; My Company <?= date('Y') ?></div>
-            <div class="col-md-6 text-center text-md-end"><?= Yii::powered() ?></div>
+        <div class="row">
+            <div class="col-md-4">
+                <aside class="footer-widget">
+                    <div class="about-img"><img src="/Blog/web/public/images/logo.png" height="100px" alt=""></div>
+                    <div class="about-content">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+                        eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed voluptua. At vero eos et
+                        accusam et justo duo dlores et ea rebum magna text ar koto din.
+                    </div>
+                    <div class="address">
+                        <h4 class="text-uppercase">contact Info</h4>
+
+                        <p> 14529/12 NK Streets, DC, KZ</p>
+
+                        <p> Phone: +123 456 78900</p>
+
+                        <p>mytreasure.com</p>
+                    </div>
+                </aside>
+            </div>
+
+            <div class="col-md-4">
+                <aside class="footer-widget">
+                    <h3 class="widget-title text-uppercase">Testimonials</h3>
+
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <!--Indicator-->
+                        <ol class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                            <li data-target="#myCarousel" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                                <div class="single-review">
+                                    <div class="review-text">
+                                        <p>Lorem ipsum dolor sit amet, conssadipscing elitr, sed diam nonumy eirmod
+                                            tempvidunt ut labore et dolore magna aliquyam erat,sed diam voluptua. At
+                                            vero eos et accusam justo duo dolores et ea rebum.gubergren no sea takimata
+                                            magna aliquyam eratma</p>
+                                    </div>
+                                    <div class="author-id">
+                                        <img src="/Blog/web/public/images/author.png" alt="">
+
+                                        <div class="author-text">
+                                            <h4>Sophia</h4>
+
+                                            <h4>CEO, ReadyTheme</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="single-review">
+                                    <div class="review-text">
+                                        <p>Lorem ipsum dolor sit amet, conssadipscing elitr, sed diam nonumy eirmod
+                                            tempvidunt ut labore et dolore magna aliquyam erat,sed diam voluptua. At
+                                            vero eos et accusam justo duo dolores et ea rebum.gubergren no sea takimata
+                                            magna aliquyam eratma</p>
+                                    </div>
+                                    <div class="author-id">
+                                        <img src="/Blog/web/public/images/author.png" alt="">
+
+                                        <div class="author-text">
+                                            <h4>Sophia</h4>
+
+                                            <h4>CEO, ReadyTheme</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="single-review">
+                                    <div class="review-text">
+                                        <p>Lorem ipsum dolor sit amet, conssadipscing elitr, sed diam nonumy eirmod
+                                            tempvidunt ut labore et dolore magna aliquyam erat,sed diam voluptua. At
+                                            vero eos et accusam justo duo dolores et ea rebum.gubergren no sea takimata
+                                            magna aliquyam eratma</p>
+                                    </div>
+                                    <div class="author-id">
+                                        <img src="/Blog/web/public/images/author.png" alt="">
+
+                                        <div class="author-text">
+                                            <h4>Sophia</h4>
+
+                                            <h4>CEO, ReadyTheme</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </aside>
+            </div>
+            <div class="col-md-4">
+                <aside class="footer-widget">
+                    <h3 class="widget-title text-uppercase">Custom Category Post</h3>
+
+
+                    <div class="custom-post">
+                        <div>
+                            <a href="#"><img src="/Blog/web/public/images/footer-img.png" alt=""></a>
+                        </div>
+                        <div>
+                            <a href="#" class="text-uppercase">Home is peaceful Place</a>
+                            <span class="p-date">February 15, 2016</span>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copy">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-center">&copy; <?= date('Y') ?>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </footer>
