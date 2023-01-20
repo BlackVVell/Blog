@@ -39,7 +39,6 @@ class Article extends \yii\db\ActiveRecord
         return [
             [['title'], 'required'],
             [['title', 'description', 'content'], 'string'],
-            [['date'], 'date', 'format' => 'php:Y-m-d'],
             [['date'], 'default', 'value' => date('Y-m-d')],
             [['viewed', 'category_id', 'user_id'], 'integer'],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
