@@ -19,7 +19,7 @@ class m230119_192418_create_article_table extends Migration
             'content' => $this->text(),
             'date' => $this->date(),
             'image' => $this->string(),
-            'viewed' => $this->integer(),
+            'viewed' => $this->integer()->defaultValue(0),
             'category_id' => $this->integer(),
             'user_id' => $this->integer(),
         ]);

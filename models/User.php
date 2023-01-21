@@ -112,4 +112,8 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return $this->save(false);
     }
+
+    public function isAdmin($id) {
+
+    }
 }

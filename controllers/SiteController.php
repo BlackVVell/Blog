@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Article;
 use app\models\Category;
+use app\models\CommentForm;
 use app\models\SignupForm;
 use Yii;
 use yii\data\Pagination;
@@ -191,12 +192,30 @@ class SiteController extends Controller
         $popular = Article::find()->orderBy('viewed DESC')->limit(3)->all();
         $recent = Article::find()->orderBy('date ASC')->limit(3)->all();
         $categories = Category::find()->all();
+        $comments = $article->getAllComments();
+        $commentForm = new CommentForm();
 
         return $this->render('post', [
             'article' => $article,
             'popular'=>$popular,
             'recent'=>$recent,
             'categories'=>$categories,
+            'comments'=>$comments,
+            'commentForm'=>$commentForm
         ]);
+    }
+
+    public function actionComment($id)
+    {
+        $model = new CommentForm();
+
+        if (Yii::$app->request->isPost)
+        {
+            $model->load(Yii::$app->request->post());
+            if ($model->saveComment($id))
+            {
+                return $this->redirect(['site/post','id'=>$id]);
+            }
+        }
     }
 }

@@ -32,6 +32,9 @@ PublicAsset::register($this);
 
                 <ul class="nav navbar-nav text-uppercase">
                     <li><a href="/Blog/web/">Home</a></li>
+                    <?php if(Yii::$app->user->identity->isAdmin):?>
+                        <li><a href="/Blog/web/admin">Admin panel</a></li>
+                    <?php endif; ?>
                 </ul>
                 <div class="i_con">
                     <ul class="nav navbar-nav text-uppercase">

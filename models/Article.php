@@ -102,6 +102,11 @@ class Article extends \yii\db\ActiveRecord
         }
     }
 
+    public function getAllComments()
+    {
+        return $this->getComments()->all();
+    }
+
     public function getDate()
     {
         return Yii::$app->formatter->asDate($this->date);

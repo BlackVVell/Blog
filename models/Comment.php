@@ -34,7 +34,7 @@ class Comment extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'article_id', 'delete'], 'integer'],
-            [['date'], 'safe'],
+            [['date'], 'default', 'value' => date('Y-m-d')],
             [['text'], 'string', 'max' => 255],
             [['article_id'], 'exist', 'skipOnError' => true, 'targetClass' => Article::class, 'targetAttribute' => ['article_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
@@ -74,5 +74,10 @@ class Comment extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
+    public function getDate()
+    {
+        return Yii::$app->formatter->asDate($this->date);
     }
 }
