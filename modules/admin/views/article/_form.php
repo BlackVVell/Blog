@@ -28,8 +28,6 @@ $items = ArrayHelper::map($category, 'id', 'title');
 
     <?= $form->field($model, 'category_id')->dropDownList($items) ?>
 
-    <?= $form->field($model, 'user_id')->textInput() ?>
-
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

@@ -79,7 +79,7 @@ class ArticleController extends Controller
                 $file->saveAs('uploads/'. $model->image);
                 $model->save(false);
             }
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post()) && $model->saveArticle()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
