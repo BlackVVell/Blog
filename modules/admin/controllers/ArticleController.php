@@ -105,13 +105,15 @@ class ArticleController extends Controller
         if (Yii::$app->request->isPost) {
             $model->load(Yii::$app->request->post());
 
-            if (file_exists('uploads/' . $model->image))
-            {
-                unlink('uploads/' . $model->image);
-            }
+
 
             if ($file = UploadedFile::getInstance($model, 'image'))
             {
+                if (file_exists('uploads/' . $model->image))
+                {
+                    unlink('uploads/' . $model->image);
+                }
+
                 $model->image = strtolower(md5(uniqid($file->baseName)) . '.' . $file->extension);
                 $file->saveAs('uploads/'. $model->image);
                 $model->save(false);
