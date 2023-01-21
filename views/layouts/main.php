@@ -3,13 +3,8 @@
 /** @var yii\web\View $this */
 /** @var string $content */
 
-use app\assets\AppAsset;
 use app\assets\PublicAsset;
-use app\widgets\Alert;
-use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
-use yii\bootstrap5\Nav;
-use yii\bootstrap5\NavBar;
 
 PublicAsset::register($this);
 ?>
@@ -29,7 +24,7 @@ PublicAsset::register($this);
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
 
-                <a href="/Blog/web/"><img src="/Blog/web/public/images/logo.png" height="50px" style="margin: 8px 20px 7px" alt=""></a>
+                <a href="/Blog/web/"><img src="/Blog/web/public/images/logo.png" height="66px" style="padding: 8px 20px 8px" alt=""></a>
             </div>
 
 
@@ -37,18 +32,17 @@ PublicAsset::register($this);
 
                 <ul class="nav navbar-nav text-uppercase">
                     <li><a href="/Blog/web/">Home</a></li>
-                    <li><a href="category">Category</a></li>
                 </ul>
                 <div class="i_con">
                     <ul class="nav navbar-nav text-uppercase">
                         <?php if(Yii::$app->user->isGuest):?>
-                            <li><a href="">Login</a></li>
-                            <li><a href="">Register</a></li>
+                            <li><a href="/Blog/web/site/login">Login</a></li>
+                            <li><a href="/Blog/web/site/signup">Register</a></li>
                         <?php else: ?>
-                            <?= Html::beginForm(['/auth/logout'], 'post')
+                            <?= Html::beginForm(['site/logout'], 'post')
                             . Html::submitButton(
                                 'Logout (' . Yii::$app->user->identity->name . ')',
-                                ['class' => 'btn btn-link logout', 'style'=>"padding-top:10px;"]
+                                ['class' => 'btn btn-link logout', 'style'=>"padding-top:20px;"]
                             )
                             . Html::endForm() ?>
                         <?php endif;?>
