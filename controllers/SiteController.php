@@ -195,6 +195,8 @@ class SiteController extends Controller
         $comments = $article->getAllComments();
         $commentForm = new CommentForm();
 
+        $article->viewedCounter();
+
         return $this->render('post', [
             'article' => $article,
             'popular'=>$popular,

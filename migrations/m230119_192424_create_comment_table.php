@@ -18,7 +18,6 @@ class m230119_192424_create_comment_table extends Migration
             'user_id' => $this->integer(),
             'article_id' => $this->integer(),
             'date' => $this->date(),
-            'delete' => $this->boolean(),
         ]);
 
         $this->createIndex(

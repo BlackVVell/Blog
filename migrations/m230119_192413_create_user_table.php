@@ -18,7 +18,6 @@ class m230119_192413_create_user_table extends Migration
             'login' => $this->string(),
             'password' => $this->string(),
             'isAdmin' => $this->integer()->defaultValue(0),
-            'image' => $this->string(),
         ]);
     }
 
