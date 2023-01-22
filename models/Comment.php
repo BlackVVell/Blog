@@ -33,7 +33,7 @@ class Comment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'article_id', 'delete'], 'integer'],
+            [['user_id', 'article_id'], 'integer'],
             [['date'], 'default', 'value' => date('Y-m-d')],
             [['text'], 'string', 'max' => 255],
             [['article_id'], 'exist', 'skipOnError' => true, 'targetClass' => Article::class, 'targetAttribute' => ['article_id' => 'id']],
@@ -52,7 +52,6 @@ class Comment extends \yii\db\ActiveRecord
             'user_id' => 'User ID',
             'article_id' => 'Article ID',
             'date' => 'Date',
-            'delete' => 'Delete',
         ];
     }
 
